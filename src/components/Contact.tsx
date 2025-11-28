@@ -18,38 +18,38 @@ const Contact = () => {
     });
   };
 
- 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
 
-  try {
-    const response = await fetch('http://localhost:5000/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-    if (response.ok) {
-      toast({
-        title: "Message Sent Successfully!",
-        description: "Thank you for your message. I'll get back to you soon!"
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
-      setFormData({ name: '', email: '', message: '' });
-    } else {
-      throw new Error('Failed to save message');
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent Successfully!",
+          description: "Thank you for your message. I'll get back to you soon!"
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error('Failed to save message');
+      }
+    } catch (error) {
+      console.error('Contact Form Error:', error);
+      toast({
+        title: "Failed to Send Message",
+        description: "Something went wrong. Please try again or contact me directly.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.error('Contact Form Error:', error);
-    toast({
-      title: "Failed to Send Message",
-      description: "Something went wrong. Please try again or contact me directly.",
-      variant: "destructive"
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
   return (
     <section id="contact" className="py-20 bg-gray-800">
       <div className="max-w-6xl mx-auto px-4">
@@ -70,8 +70,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                 Let's work together
               </h3>
               <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                I'm currently available for freelance work and full-time opportunities. 
-                If you have a project in mind or just want to chat about web development, 
+                I'm currently available for freelance work and full-time opportunities.
+                If you have a project in mind or just want to chat about web development,
                 feel free to reach out!
               </p>
             </div>
@@ -86,7 +86,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <p className="text-gray-400">karmakarindranil02@email.com</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center">
                   <span className="text-blue-400">📱</span>
@@ -96,7 +96,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <p className="text-gray-400">+91 8101872354</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-green-600/20 rounded-full flex items-center justify-center">
                   <span className="text-green-400">📍</span>
@@ -114,55 +114,55 @@ const handleSubmit = async (e: React.FormEvent) => {
               <label htmlFor="name" className="block text-white font-medium mb-2">
                 Your Name
               </label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                value={formData.name} 
-                onChange={handleChange} 
-                required 
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
                 disabled={isLoading}
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none transition-colors disabled:opacity-50" 
-                placeholder="Enter your name" 
+                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none transition-colors disabled:opacity-50"
+                placeholder="Enter your name"
               />
             </div>
-            
+
             <div>
               <label htmlFor="email" className="block text-white font-medium mb-2">
                 Your Email
               </label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                value={formData.email} 
-                onChange={handleChange} 
-                required 
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
                 disabled={isLoading}
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none transition-colors disabled:opacity-50" 
-                placeholder="Enter your email" 
+                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none transition-colors disabled:opacity-50"
+                placeholder="Enter your email"
               />
             </div>
-            
+
             <div>
               <label htmlFor="message" className="block text-white font-medium mb-2">
                 Your Message
               </label>
-              <textarea 
-                id="message" 
-                name="message" 
-                value={formData.message} 
-                onChange={handleChange} 
-                required 
-                rows={5} 
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={5}
                 disabled={isLoading}
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none transition-colors resize-none disabled:opacity-50" 
+                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none transition-colors resize-none disabled:opacity-50"
                 placeholder="Tell me about your project..."
               ></textarea>
             </div>
-            
-            <button 
-              type="submit" 
+
+            <button
+              type="submit"
               disabled={isLoading}
               className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
